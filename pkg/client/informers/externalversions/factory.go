@@ -24,8 +24,8 @@ import (
 	time "time"
 
 	versioned "github.com/bitnami-labs/sealed-secrets/pkg/client/clientset/versioned"
-	internalinterfaces "github.com/bitnami-labs/sealed-secrets/pkg/client/informers/externalversions/internalinterfaces"
-	sealed_secrets "github.com/bitnami-labs/sealed-secrets/pkg/client/informers/externalversions/sealed-secrets"
+	internalinterfaces "github.com/PennState/sealed-secrets/pkg/client/informers/externalversions/internalinterfaces"
+	sealed_secrets "github.com/PennState/sealed-secrets/pkg/client/informers/externalversions/sealed-secrets"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"

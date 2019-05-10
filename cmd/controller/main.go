@@ -25,8 +25,8 @@ import (
 	"k8s.io/client-go/rest"
 	certUtil "k8s.io/client-go/util/cert"
 
+	ssinformers "github.com/PennState/sealed-secrets/pkg/client/informers/externalversions"
 	sealedsecrets "github.com/bitnami-labs/sealed-secrets/pkg/client/clientset/versioned"
-	ssinformers "github.com/bitnami-labs/sealed-secrets/pkg/client/informers/externalversions"
 )
 
 var (
@@ -114,7 +114,7 @@ func signKey(r io.Reader, key *rsa.PrivateKey) (*x509.Certificate, error) {
 			CommonName: *myCN,
 		},
 		BasicConstraintsValid: true,
-		IsCA:                  true,
+		IsCA: true,
 	}
 
 	data, err := x509.CreateCertificate(r, &cert, &cert, &key.PublicKey, key)
