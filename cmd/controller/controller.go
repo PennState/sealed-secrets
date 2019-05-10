@@ -51,6 +51,7 @@ func unseal(sclient v1.SecretsGetter, codecs runtimeserializer.CodecFactory, key
 		_, err = sclient.Secrets(ssecret.GetObjectMeta().GetNamespace()).Update(secret)
 	}
 	if err != nil {
+		log.Printf("Failed to unseal %s:%s", ssecret.GetObjectMeta().GetNamespace(), ssecret.GetObjectMeta().GetName())
 		// TODO: requeue?
 		return err
 	}
