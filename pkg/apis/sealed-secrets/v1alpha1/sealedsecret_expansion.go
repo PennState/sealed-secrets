@@ -129,14 +129,21 @@ func (s *SealedSecret) Unseal(codecs runtimeserializer.CodecFactory, privKey *rs
 	var secret v1.Secret
 	if len(s.Spec.EncryptedData) > 0 {
 		secret.Data = map[string][]byte{}
+		successful := true
 		for key, value := range s.Spec.EncryptedData {
 			plaintext, err := crypto.HybridDecrypt(rand.Reader, privKey, value, label)
 			if err != nil {
 				log.Printf("Failed to decrypt %s:%s key: %s --  %v", smeta.GetNamespace(), smeta.GetName(), key, err)
-				return nil, err
+				successful = false
+				continue
 			}
 			secret.Data[key] = plaintext
 		}
+
+		if !successful {
+			return nil, Errors.New("Failed to decrypt")
+		}
+
 		secret.Type = s.Type
 	} else { // Support decrypting old secrets for backward compatibility
 		plaintext, err := crypto.HybridDecrypt(rand.Reader, privKey, s.Spec.Data, label)
