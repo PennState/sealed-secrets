@@ -21,7 +21,7 @@ import (
 	"k8s.io/client-go/util/workqueue"
 
 	ssv1alpha1 "github.com/PennState/sealed-secrets/pkg/apis/sealed-secrets/v1alpha1"
-	//ssv1alpha1 "github.com/bitnami-labs/sealed-secrets/pkg/apis/sealed-secrets/v1alpha1"
+	//ssv1alpha1 "github.com/PennState/sealed-secrets/pkg/apis/sealed-secrets/v1alpha1"
 	//ssinformer "github.com/PennState/sealed-secrets/pkg/client/informers/externalversions"
 	ssinformer "github.com/bitnami-labs/sealed-secrets/pkg/client/informers/externalversions"
 )
@@ -140,6 +140,7 @@ func (c *Controller) runWorker() {
 }
 
 func (c *Controller) processNextItem() bool {
+	fmt.Printf("==========> Processing the next item")
 	key, quit := c.queue.Get()
 	if quit {
 		return false

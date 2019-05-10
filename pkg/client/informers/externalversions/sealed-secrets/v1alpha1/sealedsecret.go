@@ -21,7 +21,7 @@ package v1alpha1
 import (
 	time "time"
 
-	sealed_secrets_v1alpha1 "github.com/bitnami-labs/sealed-secrets/pkg/apis/sealed-secrets/v1alpha1"
+	sealed_secrets_v1alpha1 "github.com/PennState/sealed-secrets/pkg/apis/sealed-secrets/v1alpha1"
 	versioned "github.com/bitnami-labs/sealed-secrets/pkg/client/clientset/versioned"
 	internalinterfaces "github.com/bitnami-labs/sealed-secrets/pkg/client/informers/externalversions/internalinterfaces"
 	v1alpha1 "github.com/bitnami-labs/sealed-secrets/pkg/client/listers/sealed-secrets/v1alpha1"

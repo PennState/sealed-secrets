@@ -18,7 +18,7 @@ import (
 	corev1 "k8s.io/client-go/kubernetes/typed/core/v1"
 	certUtil "k8s.io/client-go/util/cert"
 
-	ssv1alpha1 "github.com/bitnami-labs/sealed-secrets/pkg/apis/sealed-secrets/v1alpha1"
+	ssv1alpha1 "github.com/PennState/sealed-secrets/pkg/apis/sealed-secrets/v1alpha1"
 	ssclient "github.com/bitnami-labs/sealed-secrets/pkg/client/clientset/versioned"
 	"github.com/bitnami-labs/sealed-secrets/pkg/crypto"
 
