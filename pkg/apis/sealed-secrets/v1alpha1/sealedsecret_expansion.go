@@ -4,8 +4,9 @@ import (
 	"crypto/rand"
 	"crypto/rsa"
 	"fmt"
+	"log"
 
-	"k8s.io/api/core/v1"
+	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	runtimeserializer "k8s.io/apimachinery/pkg/runtime/serializer"
@@ -21,7 +22,7 @@ func labelFor(o metav1.Object) ([]byte, bool, bool) {
 	}
 	namespaceWide := o.GetAnnotations()[SealedSecretNamespaceWideAnnotation]
 	if namespaceWide == "true" {
-        return []byte(o.GetNamespace()), false, true
+		return []byte(o.GetNamespace()), false, true
 	}
 	return []byte(fmt.Sprintf("%s/%s", o.GetNamespace(), o.GetName())), false, false
 }
@@ -131,6 +132,7 @@ func (s *SealedSecret) Unseal(codecs runtimeserializer.CodecFactory, privKey *rs
 		for key, value := range s.Spec.EncryptedData {
 			plaintext, err := crypto.HybridDecrypt(rand.Reader, privKey, value, label)
 			if err != nil {
+				log.Printf("Failed to decrypt %s:%s --  %v", smeta.GetNamespace(), smeta.GetName(), err)
 				return nil, err
 			}
 			secret.Data[key] = plaintext
@@ -139,11 +141,13 @@ func (s *SealedSecret) Unseal(codecs runtimeserializer.CodecFactory, privKey *rs
 	} else { // Support decrypting old secrets for backward compatibility
 		plaintext, err := crypto.HybridDecrypt(rand.Reader, privKey, s.Spec.Data, label)
 		if err != nil {
+			log.Printf("Failed to decrypt %s:%s --  %v", smeta.GetNamespace(), smeta.GetName(), err)
 			return nil, err
 		}
 
 		dec := codecs.UniversalDecoder(secret.GroupVersionKind().GroupVersion())
 		if err = runtime.DecodeInto(dec, plaintext, &secret); err != nil {
+			log.Printf("Failed to decrypt %s:%s --  %v", smeta.GetNamespace(), smeta.GetName(), err)
 			return nil, err
 		}
 	}

@@ -20,7 +20,9 @@ import (
 	"k8s.io/client-go/tools/cache"
 	"k8s.io/client-go/util/workqueue"
 
-	ssv1alpha1 "github.com/bitnami-labs/sealed-secrets/pkg/apis/sealed-secrets/v1alpha1"
+	ssv1alpha1 "github.com/PennState/sealed-secrets/pkg/apis/sealed-secrets/v1alpha1"
+	//ssv1alpha1 "github.com/bitnami-labs/sealed-secrets/pkg/apis/sealed-secrets/v1alpha1"
+	//ssinformer "github.com/PennState/sealed-secrets/pkg/client/informers/externalversions"
 	ssinformer "github.com/bitnami-labs/sealed-secrets/pkg/client/informers/externalversions"
 )
 
