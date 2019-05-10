@@ -3,6 +3,7 @@ package v1alpha1
 import (
 	"crypto/rand"
 	"crypto/rsa"
+	"errors"
 	"fmt"
 	"log"
 
@@ -141,7 +142,7 @@ func (s *SealedSecret) Unseal(codecs runtimeserializer.CodecFactory, privKey *rs
 		}
 
 		if !successful {
-			return nil, Errors.New("Failed to decrypt")
+			return nil, errors.New("Failed to decrypt")
 		}
 
 		secret.Type = s.Type
