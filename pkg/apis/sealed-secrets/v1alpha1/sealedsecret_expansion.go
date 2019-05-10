@@ -132,7 +132,7 @@ func (s *SealedSecret) Unseal(codecs runtimeserializer.CodecFactory, privKey *rs
 		for key, value := range s.Spec.EncryptedData {
 			plaintext, err := crypto.HybridDecrypt(rand.Reader, privKey, value, label)
 			if err != nil {
-				log.Printf("Failed to decrypt %s:%s --  %v", smeta.GetNamespace(), smeta.GetName(), err)
+				log.Printf("Failed to decrypt %s:%s key: %s --  %v", smeta.GetNamespace(), smeta.GetName(), key, err)
 				return nil, err
 			}
 			secret.Data[key] = plaintext
