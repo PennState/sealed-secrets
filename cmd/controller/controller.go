@@ -16,7 +16,7 @@ import (
 	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/kubernetes/scheme"
-	"k8s.io/client-go/kubernetes/typed/core/v1"
+	v1 "k8s.io/client-go/kubernetes/typed/core/v1"
 	"k8s.io/client-go/tools/cache"
 	"k8s.io/client-go/util/workqueue"
 
@@ -35,15 +35,13 @@ type Controller struct {
 }
 
 func unseal(sclient v1.SecretsGetter, codecs runtimeserializer.CodecFactory, key *rsa.PrivateKey, ssecret *ssv1alpha1.SealedSecret) error {
-	// Important: Be careful not to reveal the namespace/name of
-	// the *decrypted* Secret (or any other detail) in error/log
-	// messages.
 
 	objName := fmt.Sprintf("%s/%s", ssecret.GetObjectMeta().GetNamespace(), ssecret.GetObjectMeta().GetName())
 	log.Printf("Updating %s", objName)
 
 	secret, err := ssecret.Unseal(codecs, key)
 	if err != nil {
+		log.Printf("Failed to unseal %s:%s", ssecret.GetObjectMeta().GetNamespace(), ssecret.GetObjectMeta().GetName())
 		// TODO: Add error event
 		return err
 	}
