@@ -18,7 +18,7 @@ package v1alpha1
 
 import (
 	v1alpha1 "github.com/PennState/sealed-secrets/pkg/apis/sealed-secrets/v1alpha1"
-	"github.com/bitnami-labs/sealed-secrets/pkg/client/clientset/versioned/scheme"
+	"github.com/PennState/sealed-secrets/pkg/client/clientset/versioned/scheme"
 	serializer "k8s.io/apimachinery/pkg/runtime/serializer"
 	rest "k8s.io/client-go/rest"
 )

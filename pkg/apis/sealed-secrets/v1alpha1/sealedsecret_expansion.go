@@ -11,7 +11,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	runtimeserializer "k8s.io/apimachinery/pkg/runtime/serializer"
 
-	"github.com/bitnami-labs/sealed-secrets/pkg/crypto"
+	"github.com/PennState/sealed-secrets/pkg/crypto"
 )
 
 // Returns labels followed by clusterWide followed by namespaceWide.

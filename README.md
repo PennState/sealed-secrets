@@ -1,7 +1,7 @@
 # "Sealed Secrets" for Kubernetes
 
 [![Build Status](https://travis-ci.org/bitnami-labs/sealed-secrets.svg?branch=master)](https://travis-ci.org/bitnami-labs/sealed-secrets)
-[![Go Report Card](https://goreportcard.com/badge/github.com/bitnami-labs/sealed-secrets)](https://goreportcard.com/report/github.com/bitnami-labs/sealed-secrets)
+[![Go Report Card](https://goreportcard.com/badge/github.com/PennState/sealed-secrets)](https://goreportcard.com/report/github.com/PennState/sealed-secrets)
 
 **Problem:** "I can manage all my K8s config in git, except Secrets."
 
@@ -13,7 +13,7 @@ original Secret from the SealedSecret.
 
 ## Installation
 
-See https://github.com/bitnami-labs/sealed-secrets/releases for the latest
+See https://github.com/PennState/sealed-secrets/releases for the latest
 release.
 
 ```sh
@@ -22,7 +22,7 @@ $ release=$(curl --silent "https://api.github.com/repos/bitnami-labs/sealed-secr
 # Install client-side tool into /usr/local/bin/
 $ GOOS=$(go env GOOS)
 $ GOARCH=$(go env GOARCH)
-$ wget https://github.com/bitnami-labs/sealed-secrets/releases/download/$release/kubeseal-$GOOS-$GOARCH
+$ wget https://github.com/PennState/sealed-secrets/releases/download/$release/kubeseal-$GOOS-$GOARCH
 $ sudo install -m 755 kubeseal-$GOOS-$GOARCH /usr/local/bin/kubeseal
 
 # Note:  If installing on a GKE cluster, a ClusterRoleBinding may be needed to successfully deploy the controller in the final command.  Replace <your-email> with a valid email, and then deploy the cluster role binding:
@@ -31,8 +31,8 @@ $ kubectl create clusterrolebinding $USER-cluster-admin-binding --clusterrole=cl
 
 # Install SealedSecret CRD, server-side controller into kube-system namespace (by default)
 # Note the second sealedsecret-crd.yaml file is not necessary for releases >= 0.8.0
-$ kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/$release/controller.yaml
-$ kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/$release/sealedsecret-crd.yaml
+$ kubectl apply -f https://github.com/PennState/sealed-secrets/releases/download/$release/controller.yaml
+$ kubectl apply -f https://github.com/PennState/sealed-secrets/releases/download/$release/sealedsecret-crd.yaml
 ```
 
 `controller.yaml` will create the `SealedSecret` resource and install the controller
@@ -62,14 +62,14 @@ If you just want the latest client tool, it can be installed into
 `$GOPATH/bin` with:
 
 ```sh
-% go get github.com/bitnami-labs/sealed-secrets/cmd/kubeseal
+% go get github.com/PennState/sealed-secrets/cmd/kubeseal
 ```
 
 For a more complete development environment, clone the repository and
 use the Makefile:
 
 ```sh
-% git clone https://github.com/bitnami-labs/sealed-secrets.git
+% git clone https://github.com/PennState/sealed-secrets.git
 % cd sealed-secrets
 
 # Build client-side tool and controller binaries
@@ -78,7 +78,7 @@ use the Makefile:
 
 ## Usage
 
-**WARNING**: A bug in the current version is limiting secrets to use the "opaque" type. If you need to use another secret type (eg: `kubernetes.io/dockerconfigjson`), please use kubeseal from release 0.5.1 until [#86](https://github.com/bitnami-labs/sealed-secrets/issues/86) and [#92](https://github.com/bitnami-labs/sealed-secrets/issues/92) are resolved.
+**WARNING**: A bug in the current version is limiting secrets to use the "opaque" type. If you need to use another secret type (eg: `kubernetes.io/dockerconfigjson`), please use kubeseal from release 0.5.1 until [#86](https://github.com/PennState/sealed-secrets/issues/86) and [#92](https://github.com/PennState/sealed-secrets/issues/92) are resolved.
 
 ```sh
 # Create a json/yaml-encoded Secret somehow:

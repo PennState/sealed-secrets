@@ -18,7 +18,7 @@ package v1alpha1
 
 import (
 	v1alpha1 "github.com/PennState/sealed-secrets/pkg/apis/sealed-secrets/v1alpha1"
-	scheme "github.com/bitnami-labs/sealed-secrets/pkg/client/clientset/versioned/scheme"
+	scheme "github.com/PennState/sealed-secrets/pkg/client/clientset/versioned/scheme"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
